@@ -1,0 +1,26 @@
+22c22
+< //#define BIT_RATE_AUTOBAUD
+---
+> #define BIT_RATE_AUTOBAUD
+48c48
+< //#define LUA_FLASH_STORE 0x10000
+---
+> #define LUA_FLASH_STORE 0x28000
+58c58
+< //#define LUA_INIT_STRING "pcall(function() node.flashindex'_init'() end)"
+---
+> #define LUA_INIT_STRING "pcall(function() node.flashindex'_init'() end)"
+93c93
+< //#define CLIENT_SSL_ENABLE
+---
+> #define CLIENT_SSL_ENABLE
+114,115c114,115
+< //#define TIMER_SUSPEND_ENABLE
+< //#define PMSLEEP_ENABLE
+---
+> #define TIMER_SUSPEND_ENABLE
+> #define PMSLEEP_ENABLE
+150c150
+< //#define WIFI_STA_HOSTNAME_APPEND_MAC
+---
+> #define WIFI_STA_HOSTNAME_APPEND_MAC

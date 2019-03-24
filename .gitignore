@@ -1,0 +1,15 @@
+.gdb_history
+sdk/
+cache/
+.ccache/
+local/
+nodemcu-firmware/
+firmware.size
+lfs.img
+spiffs.img
+spiffs.ofs
+
+#ignore Eclipse project files
+.cproject
+.project
+.settings/
