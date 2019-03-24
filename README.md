@@ -2,11 +2,11 @@
 
 ### Lua Cooperative Multitasking for NodeMCU
 
-###### TL;DR
+##### TL;DR
 
 The TaksQueue.lua module provides a simple, low-overhead coroutine-based concurrent Task manager in which a Task can at any time call `coroutine.yield([seconds])` to return control to the SDK event loop and allow other Tasks to be dispatched. It also provides a 'Lock' primative for coordination between Tasks and callbacks. `TaskQueue.lua` and `Lock.lua` facilitate inline coding of complex multiple dependent actions that would otherwise be coded as deeply-nested callbacks, chained timers, fifo queues or other less-intiutive workarounds.
 
-###### Overview
+##### Overview
 In the this and the following sections, we will use "Task" (capitalized) to indicate a TaskQueue Task and "node task" (non-capitalized) to indicate a node.task.post() task.
 
 [NodeMCU firmware](https://github.com/nodemcu/nodemcu-firmware) for for the ESP8266 provides a Lua-based development enviroment for the ESP8266 MCU that has the potential of greatly speeding up application development on these remarkable little computers. The standard environment requires an [event-driven approach](https://nodemcu.readthedocs.io/en/dev/lua-developer-faq/#so-how-does-the-sdk-event-tasking-system-work-in-lua) with callbacks that can be non-intuitive to begin with, especially for programmers who have never written for other event-driven systems like Java Swing or node.js. This becomes more evident with increasing code length and complexity, especially with ongoing maintenance and enhancememt activities. In addition, the rather strict time constraints on Lua code segments creates some special challenges. This project offers an alternative or perhaps more a complement to event-driven coding.
@@ -154,7 +154,7 @@ The down side? There are a few:
 2. Timings using `coroutine.yield(delay)` are not precise. Timings can vary significantly compared to raw tmr or real-time clock timings. Though most likely variations of a few milliseconds would be barely noticible on a human scale, you wouldn't want to use `coroutine.yield()` timings where electronic precision is required.
 3. Modules tend to be longer. For that reason, it is highly recommended to leverage LFS for TaskQueue designs.
 
-###### How It Works
+##### How It Works
 
 TaskQueue Tasks are actually [coroutines](https://www.lua.org/pil/9.1.html). TaskQueue.lua implements a priority queue for Task scheduling, a non-overflowing microsecond clock, and an event loop for dispatching Task coroutines. Tasks are prioritized by the time after which they may next be dispatched. The event loop is implemented as a tmr.alarm() that fires at regular intervals, generally every one or two milliseconds, and dispatches Tasks something like this (see the actual source code for details):
 
