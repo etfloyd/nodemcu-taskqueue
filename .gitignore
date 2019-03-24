@@ -8,6 +8,8 @@ firmware.size
 lfs.img
 spiffs.img
 spiffs.ofs
+src/time.lua
+src/HTTP_OTA.lua
 
 #ignore Eclipse project files
 .cproject
