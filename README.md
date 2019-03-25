@@ -8,7 +8,7 @@ The TaksQueue.lua module provides a simple, low-overhead coroutine-based concurr
 
 ##### Status
 
-Work in progress. The TaskQueue module itself is fairly well-tested and fully documented. The I2CLib, PCA9685, and GPIOSTEP modules are tested but not fully documented, other than source comments. WIFILib is just a start. I2CLib and WIFILib are "wrappers" around existing functionality. They are intended to simplify use of I2C and WiFi in TaskQueue Tasks but are nowhere near functionally complete.
+Work in progress. The TaskQueue module itself is fairly well-tested and fully documented. The I2CLib, PCA9685, and GPIOSTEP modules are tested but not fully documented, other than source comments. WIFILib is just a start. I2CLib and WIFILib are "wrappers" around existing functionality. They are intended to simplify use of I2C and WiFi in TaskQueue Tasks but are nowhere near functionally complete. Shell scripts for setup, patching, and building are undocumented except in comments. I build and test on Ubuntu 18.04 LTS. The setup.sh can be simplified now that PR2497 has been merged. Still, it took me a while to figure out how to build for and use LFS, so I'm including the scripts in case they might be useful as a reference.
 
 ##### Overview
 In the this and the following sections, we will use "Task" (capitalized) to indicate a TaskQueue Task and "node task" (non-capitalized) to indicate a node.task.post() task.
