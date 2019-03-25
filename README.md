@@ -132,7 +132,7 @@ local comptask = tq:schedule(0, function(self, id)
   --do something
   --now, a long-running computation
   local k = 1
-  for j = 1, 100000 do
+  for j = 1, 10000 do
     k = k / 12.345 + math.random(1000000) / 2345.678 * k + k * 0.12345
     --let sleeping watchdogs lie!
     coroutine.yield()
