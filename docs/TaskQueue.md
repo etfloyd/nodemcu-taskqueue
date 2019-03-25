@@ -1,7 +1,7 @@
 # TaskQueue Module
 | Since  | Origin / Contributor  | Maintainer  | Source  |
 | :----- | :-------------------- | :---------- | :------ |
-| 2019-01-05 | [ETFloyd](https://github.com/ETFloyd) | [ETFloyd](https://github.com/ETFloyd) | [TaskQueue.lua](./src/TaskQueue.lua) |
+| 2019-01-05 | [ETFloyd](https://github.com/ETFloyd) | [ETFloyd](https://github.com/ETFloyd) | [TaskQueue.lua](../src/TaskQueue.lua) |
 
 This Lua module provides a simple priority queue, non-overflowing microsecond clock, concurrent Task manager, and Lock synchronization primative.
 
