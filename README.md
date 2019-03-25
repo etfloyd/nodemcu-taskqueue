@@ -6,6 +6,10 @@
 
 The TaksQueue.lua module provides a simple, low-overhead coroutine-based concurrent Task manager in which a Task can at any time call `coroutine.yield([seconds])` to return control to the SDK event loop and allow other Tasks to be dispatched. It also provides a 'Lock' primative for coordination between Tasks and callbacks. `TaskQueue.lua` and `Lock.lua` facilitate inline coding of complex multiple dependent actions that would otherwise be coded as deeply-nested callbacks, chained timers, fifo queues or other less-intiutive workarounds.
 
+##### Status
+
+Work in progress. The TaskQueue module itself is fairly well-tested and fully documented. The I2CLib, PCA9685, and GPIOSTEP modules are tested but not fully documented, other than source comments. WIFILib is just a start. I2CLib and WIFILib are "wrappers" around existing functionality. They are intended to simplify use of I2C and WiFi in TaskQueue Tasks but are nowhere near functionally complete.
+
 ##### Overview
 In the this and the following sections, we will use "Task" (capitalized) to indicate a TaskQueue Task and "node task" (non-capitalized) to indicate a node.task.post() task.
 
