@@ -153,14 +153,21 @@ end,'--OtherTask')
 ```
 The first Task schedules a long-running computation. In this case, it yields to the SDK after every iteration. The second Task runs concurrently, does some stuff, then yields to the SDK while waiting for the first task to complete, then pauses approximately 2.5 seconds during which it yields to the SDK, then does more stuff. Both Tasks are given identifiers via the third parameter of the the tq:schedule() method.
 
-At the end of each Task, if running on something that shows console output, we'll get a printout of the total, average, and max execution time used by each task between yields to the SDK. This can help us tune our Lua code for optimum performance while playing nice with other processes.
+At the end of each Task, if running on something that shows console output, we'll get a printout of the total, average, and max execution time used by each Task between yields to the SDK. This can help tune the Lua code for optimum performance while playing nice with other processes.
 
-So, let's say you have eight servos and a stepper motor and you want to orchestrate these on the fly with script fragments uploaded via WiFi such that the servos operate four coordinated legs for walking and the stepper for pointing a sensor or camera. How would you approach this with nothing but callbacks? How would you approach it with TaskQueue and Lock? Which approach do you think might be easier to debug and maintain?
+##### Motivating Use Case
 
-The down side? There are a few:
-1. You tend not to get as 'tight' code with this technique.
-2. Timings using `coroutine.yield(delay)` are not precise. Timings can vary significantly compared to raw tmr or real-time clock timings. Though most likely variations of a few milliseconds would be barely noticible on a human scale, you wouldn't want to use `coroutine.yield()` timings where electronic precision is required.
-3. Modules tend to be longer. For that reason, it is highly recommended to leverage LFS for TaskQueue designs.
+So, let's say you have eight servos, a stepper motor and a couple of analog sensors and you want to orchestrate these on the fly with script fragments uploaded via WiFi. The servos operate four coordinated legs for walking and the stepper for pointing sensors whose outputs can feed back to modify the walking and pointing behavior. How would you approach the design with nothing but callbacks? How would you approach it with TaskQueue and Lock? Which approach do you think might be easier to debug and maintain? This is similar to the project I've undertaken and contemplation of what it would take to implement entirely with callbacks was the motivation for writing TaskQueue.
+
+##### The Down Side
+
+There are a few negatives:
+
+1. Timings using `coroutine.yield(delay)` are not precise. Timings can vary significantly compared to raw tmr or real-time clock timings. Though most likely variations of a few milliseconds would be barely noticible on a human scale, you wouldn't want to use `coroutine.yield()` timings where electronic precision is required. For instance, `PCA9685:fadeChannelPWM()` did not work well at all using coroutine.yield for timing. It required a `tmr:alarm()` to generate a smooth transition.
+2. Inserting `coroutine.yield()` in every iteration of a loop slows it down. A lot! This may or may not matter depending on the application. If it matters, you can always use counters to control how often the loop returns control to the SDK.
+3. Modules tend to be longer and not as "tight". For that reason, it is highly recommended to leverage LFS for TaskQueue designs.
+
+TaskQueue is not a magic bullet, it's just another tool in the toolbox.
 
 ##### How It Works
 
