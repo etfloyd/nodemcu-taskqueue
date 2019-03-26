@@ -176,9 +176,9 @@ TaskQueue Tasks are actually [coroutines](https://www.lua.org/pil/9.1.html). Tas
 1. Examine the Task at the top of the priority queue - the one with the earliest time to next dispatch - and compare its dispatch time with the current clock time. If the time has not yet arrived to dispatch the next Task, or if a Task is already being dispatched, skip the remaining steps and wait for the next alarm to fire.
 2. Post garbage collection node task on the medium priority queue with: `node.task.post(1, function() collectgarbage() end)`. This ensures that the Task segment will have as much memory as possible.
 3. Post the dispatcher as a node task on the low priority queue. When the dispatcher runs (after the garbage collection task) it does the following:
- - Remove the next Task from the priority queue and `coroutine.resume()` it to dispatch the next segment.
- - After the Task segment returns from resume(), update run time stats and check the coroutine status.
- - If the coroutine has crashed or ended normally, run the finalizer, if any, and clean up.
- - If the coroutine has yield()ed, compute the clock time when it may next be dispatched (either now or now + sleep time from the yield) and push it back on to the priority queue.
+  - Remove the next Task from the priority queue and `coroutine.resume()` it to dispatch the next segment.
+  - After the Task segment returns from resume(), update run time stats and check the coroutine status.
+  - If the coroutine has crashed or ended normally, run the finalizer, if any, and clean up.
+  - If the coroutine has yield()ed, compute the clock time when it may next be dispatched (either now or now + sleep time from the yield) and push it back on to the priority queue.
 
 The result is that Task segments execute serially as low priority node tasks between yield()s and each time a Task calls coroutine.yield(), the SDK event loop gets control so that it can itself dispatch higher priority node tasks. Task segments are executed as low priority node tasks because these can apparently tolerate longer run times than other kinds of node tasks.
